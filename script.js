@@ -1,3 +1,33 @@
+// list film
+fetch('https://api.themoviedb.org/3/discover/movie?&api_key=6c2abd54075d8a09f315ac2769e60c4e')
+.then(response => response.json())
+.then(response => {
+    const movies = response.results;
+    let cards = '';
+    movies.forEach(m => cards += showCards(m));
+    const movieContainer = document.querySelector('.movie-container');
+    movieContainer.innerHTML = cards
+
+
+    // detail button primary
+    const modalDetailButton = document.querySelectorAll('.modal-detail-button');
+    modalDetailButton.forEach(btn => {
+        btn.addEventListener('click', function(event) {
+            event.preventDefault();
+            const tmdbid = this.dataset.tmdbid;
+            fetch('https://api.themoviedb.org/3/movie/'+tmdbid+'?api_key=6c2abd54075d8a09f315ac2769e60c4e')
+            .then(response => response.json())
+            .then(m => {
+                const movieDetail = showMovieDetails(m);
+                const modalBody = document.querySelector('.modal-body');
+                modalBody.innerHTML = movieDetail;
+            })
+
+        });
+    });
+});
+
+
 const searchButton = document.querySelector('.search-button');
 searchButton.addEventListener('click', function(event) {
 
@@ -14,7 +44,7 @@ searchButton.addEventListener('click', function(event) {
         movieContainer.innerHTML = cards;
 
 
-        // detail button
+        // detail button search
         const modalDetailButton = document.querySelectorAll('.modal-detail-button');
         modalDetailButton.forEach(btn => {
             btn.addEventListener('click', function(event) {
@@ -36,15 +66,6 @@ searchButton.addEventListener('click', function(event) {
 
 });
 
-// list film
-fetch('https://api.themoviedb.org/3/discover/movie?&api_key=6c2abd54075d8a09f315ac2769e60c4e')
-.then(response => response.json())
-.then(response => {
-    const movies = response.results;
-    let cards = '';
-    movies.forEach(m => cards += showCards(m));
-    const movieContainer = document.querySelector('.movie-container');
-    movieContainer.innerHTML = cards});
 
 
 
