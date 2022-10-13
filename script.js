@@ -47,6 +47,8 @@ fetch('https://api.themoviedb.org/3/discover/movie?&api_key=6c2abd54075d8a09f315
     movieContainer.innerHTML = cards});
 
 
+
+
 // function
 function showCards(m) {
     return `<div class="col-md-4 my-3">
